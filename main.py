@@ -29,9 +29,9 @@ def main() -> None:
     with tcod.context.new_terminal(
         screen_width,
         screen_height,
-        tileset = tileset,
-        title = "Yet Another Roguelike Tutorial",
-        vsync = True
+        tileset=tileset,
+        title="Yet Another Roguelike Tutorial",
+        vsync=True
     ) as context:
         root_console = tcod.Console(screen_width, screen_height, order="F")
         try:

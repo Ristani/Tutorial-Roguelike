@@ -80,7 +80,7 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
         assert not isinstance(state, Action), f"{self!r} can not handle actions."
         return self
 
-    def on_render(self, console:tcod.Console) -> None:
+    def on_render(self, console: tcod.Console) -> None:
         raise NotImplementedError()
 
     def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
@@ -93,7 +93,7 @@ class PopupMessage(BaseEventHandler):
         self.parent = parent_handler
         self.text = text
 
-    def on_render(self, console:tcod.Console) -> None:
+    def on_render(self, console: tcod.Console) -> None:
         """ Render the parent and dim the result, then print the message on top """
         self.parent.on_render(console)
         console.tiles_rgb["fg"] //= 8
@@ -274,6 +274,7 @@ class LevelUpEventHandler(AskUserEventHandler):
             y=6,
             string=f"c) Agility (+1 defense, from {self.engine.player.fighter.defense})"
         )
+
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         player = self.engine.player
         key = event.sym
@@ -384,7 +385,7 @@ class InventoryActivateHandler(InventoryEventHandler):
 
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         if item.consumable:
-            # Return the ation for the selected item.
+            # Return the action for the selected item.
             return item.consumable.get_action(self.engine.player)
         elif item.equippable:
             return actions.EquipAction(self.engine.player, item)
@@ -615,7 +616,7 @@ class HistoryViewer(EventHandler):
                 self.cursor = 0
             else:
                 # Otherwise, move while staying clamped to the bounds of the history log
-                self.cursor = max(0, min(self.cursor + adjust, self.log_length -1))
+                self.cursor = max(0, min(self.cursor + adjust, self.log_length - 1))
         elif event.sym == tcod.event.K_HOME:
             self.cursor = 0  # Move directly to the top message
         elif event.sym == tcod.event.K_END:

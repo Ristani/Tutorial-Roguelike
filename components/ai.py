@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 from typing import List, Optional, Tuple, TYPE_CHECKING
 
-import numpy as np # type: ignore
+import numpy as np  # type: ignore
 import tcod
 
 from actions import Action, BumpAction, MeleeAction, MovementAction, WaitAction
@@ -39,7 +39,7 @@ class BaseAI(Action):
         graph = tcod.path.SimpleGraph(cost=cost, cardinal=2, diagonal=3)
         pathfinder = tcod.path.Pathfinder(graph)
 
-        pathfinder.add_root((self.entity.x, self.entity.y)) # Start position
+        pathfinder.add_root((self.entity.x, self.entity.y))  # Start position
 
         # Computer the path to the destination and remove the starting point
         path: List[List[int]] = pathfinder.path_to((dest_x, dest_y))[1:].tolist()
@@ -100,7 +100,7 @@ class HostileEnemy(BaseAI):
         target = self.engine.player
         dx = target.x - self.entity.x
         dy = target.y - self.entity.y
-        distance = max(abs(dx), abs(dy)) # Chebyshev distance
+        distance = max(abs(dx), abs(dy))  # Chebyshev distance
 
         if self.engine.game_map.visible[self.entity.x, self.entity.y]:
             if distance <= 1:
